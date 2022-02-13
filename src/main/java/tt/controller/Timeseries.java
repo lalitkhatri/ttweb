@@ -18,17 +18,18 @@ public class Timeseries {
 	private ViewTimeseries viewtimeseries = new ViewTimeseries();
 	
 	@CrossOrigin(origins = "http://localhost:4040")
-	@GetMapping("/{symbol}")
-	public Map<String, Record> getTimeseries(@PathVariable("symbol") String symbol) throws Exception {
+	@GetMapping("/{exchange}/{symbol}")
+	public Map<String, Record> getTimeseries(@PathVariable("exchange") String exchange, @PathVariable("symbol") String symbol) throws Exception {
 		System.out.println("Get Timeseries for - "+ symbol);
-		return viewtimeseries.getTimeseries(symbol);
+		return viewtimeseries.getTimeseries(exchange.toUpperCase(), symbol.toUpperCase());
 	}
 	
 	@CrossOrigin(origins = "http://localhost:4040")
-	@GetMapping("/{symbol}/{freq}")
-	public Map<String, Record> getTimeseries(@PathVariable("symbol") String symbol, @PathVariable String freq) throws Exception {
+	@GetMapping("/{exchange}/{symbol}/{freq}")
+	public Map<String, Record> getTimeseries(@PathVariable("exchange") String exchange, 
+			@PathVariable("symbol") String symbol, @PathVariable String freq) throws Exception {
 		System.out.println("Get Timeseries for symbol - "+ symbol + " and freq - "+ freq);
-		return viewtimeseries.getTimeseries(symbol,freq);
+		return viewtimeseries.getTimeseries(exchange.toUpperCase(), symbol.toUpperCase(),freq);
 	}
 
 }
